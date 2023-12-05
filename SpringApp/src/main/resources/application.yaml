@@ -8,3 +8,10 @@ logging:
     org.springframework.web.servlet: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
     org.springframework.security: debug
+
+spring:
+  datasource:
+    url: jdbc:mariadb://13.209.105.14/test
+    username: 'jch'
+    password: 'neuroflow12'
+    driverClassName: org.mariadb.jdbc.Driver

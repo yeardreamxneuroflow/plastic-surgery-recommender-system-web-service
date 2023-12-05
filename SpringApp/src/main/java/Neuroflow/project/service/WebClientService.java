@@ -33,5 +33,4 @@ public class WebClientService {
                 .bodyToMono(byte[].class)
                 .block();
     }
-
 }
