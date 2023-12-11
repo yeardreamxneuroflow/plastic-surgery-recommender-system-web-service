@@ -11,7 +11,7 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:mariadb://13.209.105.14/test
-    username: 'jch'
+    url: jdbc:mariadb://13.209.105.14:3306/test?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: 'JCH'
     password: 'neuroflow12'
     driverClassName: org.mariadb.jdbc.Driver

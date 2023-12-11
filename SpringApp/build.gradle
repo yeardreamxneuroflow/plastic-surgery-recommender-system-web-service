@@ -34,11 +34,13 @@ dependencies {
 	implementation 'com.jlefebure:spring-boot-starter-minio:1.1'
 	implementation 'org.apache.httpcomponents:httpcore:4.4.15'
 	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
-//	implementation 'commons-io:commons-io:2.15.0'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'javax.servlet:javax.servlet-api:4.0.1'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+	// amazon S3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {
