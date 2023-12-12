@@ -174,4 +174,4 @@ Temporary Items
 *.icloud
 
 # spring application.yaml
-.yaml
+SpringApp/src/main/resources/application.yaml
