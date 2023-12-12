@@ -7,5 +7,7 @@ import java.sql.SQLException;
 
 @Repository
 public interface MemberRepository {
-    public void saveUser(MemberJoinDto user, String auth) throws SQLException;
+    public boolean saveUser(MemberJoinDto user, String auth) throws SQLException;
+
+    public String getUserId(String username);
 }

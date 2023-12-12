@@ -16,11 +16,24 @@ public class MemberRepositoryJdbc implements MemberRepository{
     }
 
     @Override
-    public void saveUser(MemberJoinDto user, String auth) throws SQLException {
-        String sql = "INSERT INTO users (id, username, password, enabled, created_at) VALUES(?,?,?,?,?)";
-        jdbcTemplate.update(sql, user.getId(), user.getUsername(), user.getPassword(), 1, user.getCreated_at());
+    public boolean saveUser(MemberJoinDto user, String auth) {
 
+        String sql = "INSERT INTO users (id, username, password, enabled, created_at) VALUES(?,?,?,?,?)";
+        try {
+            jdbcTemplate.update(sql, user.getId(), user.getUsername(), user.getPassword(), 1, user.getCreated_at());
+        } catch (Exception e){
+            System.out.println("아이디 중복오류");
+            return false;
+        }
         String auth_sql = "INSERT INTO authorities (username, authority) VALUES(?, ?)";
         jdbcTemplate.update(auth_sql, user.getUsername(), user.getRole());
+
+        return true;
+    }
+
+    @Override
+    public String getUserId(String username) {
+        String sql = "SELECT id FROM users WHERE username=?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{username}, String.class);
     }
 }
