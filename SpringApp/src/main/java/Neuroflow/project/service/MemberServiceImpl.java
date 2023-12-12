@@ -2,7 +2,6 @@ package Neuroflow.project.service;
 
 import Neuroflow.project.dto.request.MemberJoinDto;
 import Neuroflow.project.repository.MemberRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,15 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean memberSave(MemberJoinDto memberJoinDto) throws SQLException {
         memberJoinDto.setPassword(passwordEncoder.encode(memberJoinDto.getPassword()));
-        memberRepository.saveUser(memberJoinDto, "ROLE_USER");
-        return true;
+        if (memberRepository.saveUser(memberJoinDto, "ROLE_USER")){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    @Override
+    public String getMemberid(String username) {
+        return memberRepository.getUserId(username);
     }
 }

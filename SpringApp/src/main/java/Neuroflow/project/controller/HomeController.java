@@ -4,10 +4,12 @@ import Neuroflow.project.dto.request.MemberJoinDto;
 import Neuroflow.project.service.CodeService;
 import Neuroflow.project.service.MemberService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
@@ -23,7 +25,8 @@ public class HomeController {
     }
 
     @GetMapping("index")
-    public String index(){
+    public String index(Principal principal, final Model model){
+        model.addAttribute("username",principal.getName());
         return "index";
     }
 

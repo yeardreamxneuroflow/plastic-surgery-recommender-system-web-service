@@ -9,4 +9,6 @@ import java.sql.SQLException;
 public interface MemberService {
 
     public boolean memberSave(MemberJoinDto memberJoinDto) throws SQLException;
+
+    public String getMemberid(String username);
 }
