@@ -174,4 +174,6 @@ Temporary Items
 *.icloud
 
 # spring application.yaml
-SpringApp/src/main/resources/application.yaml
+plastic-surgery-recommender-system-web-service/SpringApp/src/main/resources/application.yaml
+
+# End of https://www.toptal.com/developers/gitignore/api/macos,java,intellij
