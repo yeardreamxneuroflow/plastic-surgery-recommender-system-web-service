@@ -35,7 +35,7 @@ public class SpringSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(PathRequest.toStaticResources().at(CSS,IMAGES,JAVA_SCRIPT)).permitAll()
-                        .requestMatchers("/","/home","/join","testV1").permitAll()
+                        .requestMatchers("/","home","/join","index").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

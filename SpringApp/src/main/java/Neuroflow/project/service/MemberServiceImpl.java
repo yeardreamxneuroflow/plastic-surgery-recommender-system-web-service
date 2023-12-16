@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public String getMemberid(String username) {
+    public String getMemberId(String username) {
         return memberRepository.getUserId(username);
     }
 }
