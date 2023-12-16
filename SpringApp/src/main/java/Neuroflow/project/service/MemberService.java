@@ -10,5 +10,5 @@ public interface MemberService {
 
     public boolean memberSave(MemberJoinDto memberJoinDto) throws SQLException;
 
-    public String getMemberid(String username);
+    public String getMemberId(String username);
 }

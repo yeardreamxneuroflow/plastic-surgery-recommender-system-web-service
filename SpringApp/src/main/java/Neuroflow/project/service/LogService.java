@@ -1,5 +1,6 @@
 package Neuroflow.project.service;
 
+import Neuroflow.project.dto.ImageContentDto;
 import Neuroflow.project.dto.Process;
 import Neuroflow.project.repository.LogRepository;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,13 @@ public class LogService {
         this.s3Service = s3Service;
     }
 
-    public void saveLog(String username){
+    public void saveLog(String username, ImageContentDto inputImageContent){
         // 1. log_id 2. username 3. logging_at 4.image_url,file key
         Process process = new Process(codeService.getSequenceNumber("NFL")
-                ,memberService.getMemberid(username)
+                ,memberService.getMemberId(username)
                 ,LocalDateTime.now()
-                ,""
-                ,""
+                ,inputImageContent.getUrl()
+                ,inputImageContent.getFileKey()
                 ,""
                 ,"");
 
