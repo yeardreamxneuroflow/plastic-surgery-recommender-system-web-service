@@ -38,12 +38,7 @@ public class S3Service {
         return new ImageContentDto(originalFilename, amazonS3.getUrl(client_bucket, originalFilename).toString());
     }
 
-    public String getOutputFileUrl(String wannabeName){
-
-
-
-        return "";
-    }
+    public String getOutputFileUrl(String wannabeName){ return ""; }
 
     public String getFileKey(){
         return "";
