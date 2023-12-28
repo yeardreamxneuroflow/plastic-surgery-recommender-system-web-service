@@ -22,15 +22,15 @@ public class LogService {
         this.s3Service = s3Service;
     }
 
-    public void saveLog(String username, ImageContentDto inputImageContent){
+    public void saveLog(String username, ImageContentDto inputImageContent, ImageContentDto wannabeImageContent){
         // 1. log_id 2. username 3. logging_at 4.image_url,file key
         Process process = new Process(codeService.getSequenceNumber("NFL")
                 ,memberService.getMemberId(username)
                 ,LocalDateTime.now()
                 ,inputImageContent.getUrl()
                 ,inputImageContent.getFileKey()
-                ,""
-                ,"");
+                ,wannabeImageContent.getUrl()
+                ,wannabeImageContent.getFileKey());
 
         logRepository.saveLog(process);
     }

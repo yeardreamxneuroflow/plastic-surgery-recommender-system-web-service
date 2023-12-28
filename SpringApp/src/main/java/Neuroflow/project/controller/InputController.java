@@ -61,7 +61,9 @@ public class InputController {
             wannabeLandmarkImage.put(entry.getKey(), s3Service.getWannabeLandmarkImage(entry.getValue().getWannabeName(), entry.getKey()));
         }
 
-        model.addAttribute("most_similarity_wannabe_image",s3Service.maxSimilarityAndGetImage(jsonObject));
+        Map<String, String> wannabeResult = s3Service.maxSimilarityAndGetImage(jsonObject);
+
+        model.addAttribute("most_similarity_wannabe_image", wannabeResult.get("result"));
 
         // 이미지 출력
         model.addAttribute("wannabeLandmarkImage", wannabeLandmarkImage);
@@ -74,10 +76,12 @@ public class InputController {
 
 
         //
-        ImageContentDto inputImageContentDto = s3Service.insertImage(multipartFile, principal.getName());
+        ImageContentDto clientImageContentDto = s3Service.insertImage(multipartFile, principal.getName());
+        ImageContentDto wannabeImageContentDto = new ImageContentDto(wannabeResult.get("key"),wannabeResult.get("url"));
 
         //logService
-        logService.saveLog(principal.getName(), inputImageContentDto);
+
+        logService.saveLog(principal.getName(), clientImageContentDto, wannabeImageContentDto);
 
 
         return "/outputimage";

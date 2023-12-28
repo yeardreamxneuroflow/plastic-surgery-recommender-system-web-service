@@ -49,16 +49,6 @@ public class S3Service {
         return new ImageContentDto(originalFilename, amazonS3.getUrl(client_bucket, originalFilename).toString());
     }
 
-    public byte[] getWannabeImage(String wannabeName) throws IOException {
-
-        String originalFilename = wannabeName + "/original.jpg";
-
-        S3Object s3Object = amazonS3.getObject(new GetObjectRequest(wannabe_bucket, originalFilename));
-        S3ObjectInputStream objectInputStream = s3Object.getObjectContent();
-
-        return IOUtils.toByteArray(objectInputStream);
-    }
-
     public String getWannabeLandmarkImage(String wannabeName, String landmarkLoc) throws IOException {
 
         String landmark = null;
@@ -93,7 +83,7 @@ public class S3Service {
         return Base64.getEncoder().encodeToString(IOUtils.toByteArray(objectInputStream));
     }
 
-    public String maxSimilarityAndGetImage(Map<String, LoadApiContentDto> JsonObject) throws IOException {
+    public Map<String, String> maxSimilarityAndGetImage(Map<String, LoadApiContentDto> JsonObject) throws IOException {
 
         Map<String, Double> values = new HashMap<>();
         values.put("leftEye", Double.valueOf(JsonObject.get("leftEye").getScore()));
@@ -111,15 +101,18 @@ public class S3Service {
                 .findFirst()
                 .orElse(null);
 
-        System.out.println("Max value: " + maxSimilarity);
-        System.out.println("Key with max value: " + keyWithMaxValue);
-
         String originalFilename = JsonObject.get(keyWithMaxValue).getWannabeName() + "/original.jpg";
 
         S3Object s3Object = amazonS3.getObject(new GetObjectRequest(wannabe_bucket, originalFilename));
         S3ObjectInputStream objectInputStream = s3Object.getObjectContent();
 
-        return Base64.getEncoder().encodeToString(IOUtils.toByteArray(objectInputStream));
+        Map<String, String> result = new HashMap<>();
+
+        result.put("result",Base64.getEncoder().encodeToString(IOUtils.toByteArray(objectInputStream)));
+        result.put("key", originalFilename);
+        result.put("url", amazonS3.getUrl(wannabe_bucket, originalFilename).toString());
+
+        return result;
     }
 
     public String getOutputFileUrl(String wannabeName){ return ""; }
