@@ -38,8 +38,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
+
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+
 	//json file parsing 라이브러리
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
 
 	// amazon S3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'

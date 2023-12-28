@@ -2,7 +2,9 @@ package Neuroflow.project.controller;
 
 import Neuroflow.project.dto.request.MemberJoinDto;
 import Neuroflow.project.service.CodeService;
+import Neuroflow.project.service.JsonService;
 import Neuroflow.project.service.MemberService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ public class HomeController {
     }
 
     @GetMapping("index")
-    public String index(Principal principal, final Model model){
+    public String index(Principal principal, final Model model) throws JsonProcessingException {
         model.addAttribute("username",principal.getName());
         return "index";
     }
