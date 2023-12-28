@@ -35,8 +35,8 @@ public class WebClientService {
                 .block();
     }
 
-    public JSONObject verificationV2(MultipartFile multipartFile) {
-        webClient = WebClient.create("http://3.37.43.33:5000");
+    public String verificationV2(MultipartFile multipartFile) {
+        webClient = WebClient.create("http://3.35.39.66:5000");
 
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         builder.part("img_file", multipartFile.getResource());
@@ -47,7 +47,7 @@ public class WebClientService {
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .body(BodyInserters.fromMultipartData(payloadFile))
                 .retrieve()
-                .bodyToMono(JSONObject.class)
+                .bodyToMono(String.class)
                 .block();
     }
 }

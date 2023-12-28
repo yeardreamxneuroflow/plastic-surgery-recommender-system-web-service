@@ -36,33 +36,47 @@
         </div>
     </nav>
 <div class="wrap">
-    <div class="box"><img class="test-image" src="/images/testImg.jpg" alt="..." /></div>
+    <div class="box"><img class="test-image" th:src="'data:image/jpeg;base64,'+ ${client_image}"/></div>
     <div class="middle-box">
         <table class="middle-table">
             <tr>
-                <td><img class="test-image" src="/images/testImg.jpg" alt="..." /></td>
-                <td>유사도 점수</td>
-                <td><img class="test-image" src="/images/testImg.jpg" alt="..." /></td>
+                <td><img class="client-left-eye" th:src="'data:image/jpeg;base64,'+ ${jsonObject.get('leftEye').image}"/></td>
+                <td><h6 th:text ="${jsonObject.get('leftEye').score}"></h6></td>
+                <td><h4 th:text ="${jsonObject.get('leftEye').wannabeName}"></h4></td>
+                <td><img class="wannabe-left-eye" th:src="'data:image/jpeg;base64,'+ ${wannabeLandmarkImage.get('leftEye')}"/></td>
             </tr>
             <tr>
-                <td><img class="test-image" src="/images/testImg.jpg" alt="..." /></td>
-                <td>유사도 점수</td>
-                <td><img class="test-image" src="/images/testImg.jpg" alt="..." /></td>
+                <td><img class="client-right-eye" th:src="'data:image/jpeg;base64,'+ ${jsonObject.get('rightEye').image}"></td>
+                <td><h6 th:text ="${jsonObject.get('rightEye').score}"></h6></td>
+                <td><h4 th:text ="${jsonObject.get('rightEye').wannabeName}"></h4></td>
+                <td><img class="wannabe-right-eye" th:src="'data:image/jpeg;base64,'+ ${wannabeLandmarkImage.get('rightEye')}"/></td>
             </tr>
             <tr>
-                <td><img class="test-image" src="/images/testImg.jpg" alt="..." /></td>
-                <td>유사도 점수</td>
-                <td><img class="test-image" src="/images/testImg.jpg" alt="..." /></td>
+                <td><img class="nose" th:src="'data:image/jpeg;base64,'+ ${jsonObject.get('nose').image}"></td>
+                <td><h6 th:text ="${jsonObject.get('nose').score}"></h6></td>
+                <td><h4 th:text ="${jsonObject.get('nose').wannabeName}"></h4></td>
+                <td><img class="wannabe-nose" th:src="'data:image/jpeg;base64,'+ ${wannabeLandmarkImage.get('nose')}"/></td>
             </tr>
             <tr>
-                <td><img class="test-image" src="/images/testImg.jpg" alt="..." /></td>
-                <td>유사도 점수</td>
-                <td><img class="test-image" src="/images/testImg.jpg" alt="..." /></td>
+                <td><img class="lips" th:src="'data:image/jpeg;base64,'+ ${jsonObject.get('lips').image}"></td>
+                <td><h6 th:text ="${jsonObject.get('lips').getScore()}"></h6></td>
+                <td><h4 th:text ="${jsonObject.get('lips').wannabeName}"></h4></td>
+                <td><img class="wannabe-lips" th:src="'data:image/jpeg;base64,'+ ${wannabeLandmarkImage.get('lips')}"/></td>
             </tr>
         </table>
     </div>
-    <div class="box"><img class="test-image" src="/images/testImg.jpg" alt="..." /></div>
+    <div class="box"><img class="wannabe-image" th:src="'data:image/jpeg;base64,'+ ${most_similarity_wannabe_image}"/></div>
 </div>
+
+    <section class="py-5 bg-gradient-primary-to-secondary text-white">
+        <div class="container px-5 my-5">
+            <div class="text-center">
+                <!--                        <h2 class="display-4 fw-bolder mb-4">Let's build something together</h2>-->
+                <!--                        <a class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder" href="contact.html">Contact me</a>-->
+            </div>
+        </div>
+    </section>
+</main>
     <footer class="bg-white py-4 mt-auto">
         <div class="container px-5">
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">

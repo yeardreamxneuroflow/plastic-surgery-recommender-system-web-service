@@ -10,6 +10,7 @@
     color:#fff;font-size:20px;text-align:center;
     box-sizing:border-box;
     /*background:navy*/
+
 }
 .middle-box{
     display: flex;
@@ -32,8 +33,8 @@
     border-spacing: 10px;
 }
 
-img {
-    width: auto;
-    height: auto;
-    object-fit: cover;
+.box img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }

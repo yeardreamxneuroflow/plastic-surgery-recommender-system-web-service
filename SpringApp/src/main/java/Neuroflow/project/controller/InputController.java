@@ -2,11 +2,10 @@ package Neuroflow.project.controller;
 
 import Neuroflow.project.dto.ImageContentDto;
 import Neuroflow.project.dto.LoadApiContentDto;
+import Neuroflow.project.service.JsonService;
 import Neuroflow.project.service.LogService;
 import Neuroflow.project.service.S3Service;
 import Neuroflow.project.service.WebClientService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +18,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Base64;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
@@ -28,11 +28,13 @@ public class InputController {
     private final LogService logService;
     private final WebClientService webClientService;
     private final S3Service s3Service;
+    private final JsonService jsonService;
 
-    public InputController(LogService logService, WebClientService webClientService, S3Service s3Service) {
+    public InputController(LogService logService, WebClientService webClientService, S3Service s3Service, JsonService jsonService) {
         this.logService = logService;
         this.webClientService = webClientService;
         this.s3Service = s3Service;
+        this.jsonService = jsonService;
     }
 
     @GetMapping("/photo")
@@ -43,25 +45,33 @@ public class InputController {
     @PostMapping("/photo")
     public String sendPost(final Model model, @RequestParam("image") MultipartFile multipartFile, Principal principal) throws IOException, SQLException {
 
-        // new API JSON array 처리. V1
-//        ObjectMapper objectMapper = new ObjectMapper();
-//
-//        LoadApiContentDto loadApiContentDto = objectMapper.readValue(webClientService.verification(multipartFile), LoadApiContentDto.class);
+        // 입력된 Image를 API로 전송
+        String requestData = webClientService.verificationV2(multipartFile);
 
-        // new API JSON array 처리. V2
-//        ObjectMapper objectMapper = new ObjectMapper();
-//
-//        Map<String, LoadApiContentDto> loadApiContentDtoMap = objectMapper.readValue(webClientService.verification(multipartFile), Map.class);
+//        String requestData = "{\"left-eye\":{\"most_similar_wannabe\":\"정국\", \"score\":\"0.9755707\", \"user_landmark_image\":\"binary_code\"}, \"right-eye\":{\"most_similar_wannabe\":\"정국\", \"score\":\"0.9825953\", \"user_landmark_image\":\"binary_code\"}, \"nose\":{\"most_similar_wannabe\":\"박보검\", \"score\":\"0.9825953\", \"user_landmark_image\":\"binary_code\"}, \"lips\":{\"most_similar_wannabe\":\"박보검\", \"score\":\"0.9825953\", \"user_landmark_image\":\"binary_code\"}}";
 
-        // 입력된 IMAGE를 API로 전송
+        byte[] imageData = multipartFile.getBytes();
 
-        byte[] imageData = webClientService.verification(multipartFile);
-
-        System.out.println(imageData);
         String base64ImageData = Base64.getEncoder().encodeToString(imageData);
 
+        Map<String, LoadApiContentDto> jsonObject = jsonService.getObject(requestData);
+        Map<String, String> wannabeLandmarkImage = new LinkedHashMap<>();
+
+        for (Map.Entry<String, LoadApiContentDto> entry : jsonObject.entrySet()) {
+            wannabeLandmarkImage.put(entry.getKey(), s3Service.getWannabeLandmarkImage(entry.getValue().getWannabeName(), entry.getKey()));
+        }
+
+        model.addAttribute("most_similarity_wannabe_image",s3Service.maxSimilarityAndGetImage(jsonObject));
+
         // 이미지 출력
-        model.addAttribute("image_file", base64ImageData);
+        model.addAttribute("wannabeLandmarkImage", wannabeLandmarkImage);
+
+        model.addAttribute("client_image", base64ImageData);
+
+        model.addAttribute("image_file", jsonService.getImage(requestData));
+
+        model.addAttribute("jsonObject", jsonObject);
+
 
         //
         ImageContentDto inputImageContentDto = s3Service.insertImage(multipartFile, principal.getName());
@@ -69,11 +79,8 @@ public class InputController {
         //logService
         logService.saveLog(principal.getName(), inputImageContentDto);
 
-        return "/image_output";
-    }
 
-    @GetMapping("/image")
-    public String imagePost(){
         return "/outputimage";
     }
+
 }
