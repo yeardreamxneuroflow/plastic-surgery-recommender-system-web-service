@@ -16,7 +16,7 @@
 - *Database* : MariaDB
 - *Cloud* : AWS EC2, S3
 - *Model* : Marqo, Mediapipe
-- 
+  
 
 ![Neuroflow_Architecture drawio](https://github.com/yeardreamxneuroflow/plastic-surgery-recommender-system-web-service/assets/46197893/f3418184-cfce-4659-8f8e-2f6081c611d7)
 
