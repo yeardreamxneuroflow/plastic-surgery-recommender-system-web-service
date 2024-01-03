@@ -41,5 +41,8 @@
 #### Log
 - 입력 이미지 S3 에 저장
 - 서비스 이용시 로그를 저장
-  - 회원 정보, 서비스 이용 일시, 입력 이미지 S3 filekey, URL, 출력 이미지의 S3 file key, URL
+  - 회원 정보
+  - 서비스 이용 일시
+  - 입력 이미지 S3 filekey, URL
+  - 출력 이미지의 S3 file key, URL
 
