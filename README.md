@@ -27,7 +27,7 @@
 회원 가입 및 인증 시 서비스 시작 가능.
 
 - result.html
-<img width="1445" alt="KakaoTalk_Photo_2024-01-03-16-43-29" src="https://github.com/yeardreamxneuroflow/plastic-surgery-recommender-system-web-service/assets/46197893/383274d7-7bed-49f3-9ffc-596bb293794a">
+> <img width="1445" alt="KakaoTalk_Photo_2024-01-03-16-43-29" src="https://github.com/yeardreamxneuroflow/plastic-surgery-recommender-system-web-service/assets/46197893/383274d7-7bed-49f3-9ffc-596bb293794a">
 인증 후 서비스를 위한 Client Image 를 전송 후 result 출력.
 
 ## 주요 기능
@@ -42,6 +42,4 @@
 - 입력 이미지 S3 에 저장
 - 서비스 이용시 로그를 저장
   - 회원 정보, 서비스 이용 일시, 입력 이미지 S3 filekey, URL, 출력 이미지의 S3 file key, URL
-
-#### 
 
